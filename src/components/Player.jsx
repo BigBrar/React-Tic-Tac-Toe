@@ -1,11 +1,15 @@
 import { useState } from "react";
 
-export default function Player({name, symbol, isActive}){
+export default function Player({name, symbol, isActive, savePlayerName}){
     const [playerName, setPlayerName] = useState(name);
     const [isEditing, setIsEditing] = useState(false);
 
     const changeEditingStatus = ()=>{
         setIsEditing(()=>!isEditing); //sets isEditing opposite of its current value so true becomes false and vice versa
+        if (isEditing){
+            savePlayerName(symbol , playerName);
+        }
+        
     }
     let spanText = <span className="player-name">{playerName}</span>
 
@@ -22,7 +26,7 @@ export default function Player({name, symbol, isActive}){
             {spanText}
             <span className="player-symbol">{symbol}</span>
             </span>
-            <button onClick={changeEditingStatus}>{isEditing?'Save':'Edit'}</button>
+            <button onClick={changeEditingStatus} >{isEditing?'Save':'Edit'}</button>
           </li>
     )
 }
